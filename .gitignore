@@ -6,6 +6,8 @@
 
 .DS_Store
 
+/export_twitter.sh
+
 # Ignore bundler config
 /.bundle
 

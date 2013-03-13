@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nickname: MyString
+  twitter_uid: MyString
+  provider_hash: MyText
+
+two:
+  nickname: MyString
+  twitter_uid: MyString
+  provider_hash: MyText

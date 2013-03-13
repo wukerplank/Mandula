@@ -1,4 +1,9 @@
 Mandula::Application.routes.draw do
+  
+  
+  match '/auth/:provider/callback' => 'Users#auth'
+  match '/auth/failure'            => 'Users#auth_failure'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
