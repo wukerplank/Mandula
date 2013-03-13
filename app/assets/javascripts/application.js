@@ -18,3 +18,6 @@
 //= require backbone_datalink
 //= require backbone/mandula
 //= require_tree .
+
+app = new window.Mandula.Routers.AppRouter();
+Backbone.history.start();

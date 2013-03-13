@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%= stylesheet_link_tag "application", :media => "all" %>
+</head>
+<body>
+	
+	<p>
+		<a href="/">Home</a> | 
+		<a href="/#/videos/new">New Upload</a> | 
+		<a href="/auth/developer">Sign in with Developer</a> | 
+		<a href="/auth/twitter">Sign in with Twitter</a>
+	</p>
+	
+	<hr>
+	
+	<div id="content">
+		
+	</div>
+	
+	<script type="text/html" id="videoNew">
+		<form action="/videos/" method="POST" enctype="multipart/form-data">
+			<p><input type="text" name="video[title]"></p>
+
+			<p><textarea name="video[description]"></textarea></p>
+
+			<p><input type="file" name="video[video]"></p>
+
+			<p><input type="submit"></p>
+		</form>
+	</script>
+	
+	<script type="text/html" id="videoShow">
+		<h1><%%= title %></h1>
+		<p><%%= description %></p>
+		
+		<p><img src="<%%= video.url %>" /></p>
+	</script>
+	
+	<script type="text/html" id="home">
+		<h1><%%= title %></h1>
+		<p><%%= description %></p>
+		
+		<p><img src="<%%= video.url %>" /></p>
+	</script>
+	
+	<script type="text/html" id="videoTile">
+		<div style="width:200px; height:200px; margin: 0 10px 10px 0; float: left; overflow:hidden">
+			<a href="/#/videos/<%%= id %>" title="<%%= title %>"><img src="<%%= video.url %>" /></a>
+		</div>
+	</script>
+	
+	<%= javascript_include_tag "application" %>
+</body>
+</html>

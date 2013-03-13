@@ -1,8 +1,12 @@
 Mandula::Application.routes.draw do
   
   
+  resources :videos
+  
   match '/auth/:provider/callback' => 'Users#auth'
   match '/auth/failure'            => 'Users#auth_failure'
+  
+  root :to => 'root#index'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
