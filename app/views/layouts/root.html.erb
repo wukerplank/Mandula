@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<%= stylesheet_link_tag "application", :media => "all" %>
+	<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
 </head>
 <body>
 	
@@ -32,9 +33,19 @@
 	
 	<script type="text/html" id="videoShow">
 		<h1><%%= title %></h1>
+		<video id="example_video_1" class="video-js vjs-default-skin" controls width="852" height="480" poster="<%%= screenshot_large_url %>" preload="auto" data-setup="{}">
+		  <source type="video/mp4" src="<%%= converted_url %>">
+		</video>
+		
 		<p><%%= description %></p>
 		
-		<p><img src="<%%= screenshot_large_url %>" /></p>
+		<script type="text/javascript" charset="utf-8">
+			_V_("example_video_1", {}, function(){
+				// ...
+			});
+		</script>
+		
+		
 	</script>
 	
 	<script type="text/html" id="home">
@@ -45,11 +56,12 @@
 	</script>
 	
 	<script type="text/html" id="videoTile">
-		<div style="width:200px; height:200px; margin: 0 10px 10px 0; float: left; overflow:hidden">
-			<a href="/#/videos/<%%= id %>" title="<%%= title %>"><img src="<%%= screenshot_large_url %>" /></a>
+		<div style="width:274px; height:154px; margin: 0 10px 10px 0; float: left; overflow:hidden">
+			<a href="/#/videos/<%%= id %>" title="<%%= title %>"><img src="<%%= screenshot_small_url %>" /></a>
 		</div>
 	</script>
 	
 	<%= javascript_include_tag "application" %>
+	<script src="http://vjs.zencdn.net/c/video.js"></script>
 </body>
 </html>

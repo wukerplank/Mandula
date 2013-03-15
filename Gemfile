@@ -8,9 +8,11 @@ gem 'rails', '3.2.12'
 gem 'bunny', '0.9.0.pre4'
 gem 'carrierwave'
 gem 'fog', '~> 1.3.1'
-gem 'rails-backbone'
+gem 'mini_magick'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'open4'
+gem 'rails-backbone'
 
 group :development do
   gem 'sqlite3'
@@ -27,7 +29,7 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
+  
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 

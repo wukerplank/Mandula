@@ -5,10 +5,22 @@ require 'rubygems'
 require 'json'
 require 'bunny'
 require 'open4'
+require 'mini_magick'
 
 def rabbit_url
   "amqp://#{ENV['RABBIT_MQ_USER']}:#{ENV['RABBIT_MQ_PASSWORD']}@#{ENV['RABBIT_MQ_HOST']}:#{ENV['RABBIT_MQ_PORT']}"
 end
+
+def resize_image(image, target)
+  remove = (image[:height] - (image[:width] / 1.7777777777777777777777777777777777777777777777)).floor
+  
+  image.crop "#{image[:width]}x#{image[:height]-remove}+0+#{(remove / 2).floor}"
+  
+  image.resize(target)
+  
+  return image
+end
+
 
 client = Bunny.new(rabbit_url)
 client.start
@@ -23,22 +35,38 @@ loop do
   if payload
     client.stop
     
-    json = JSON.parse(payload)
+    begin
+      json = JSON.parse(payload)
     
-    puts "Received: #{json.inspect}"
+      puts "Received: #{json.inspect}"
     
-    command = "#{ENV['FFMPEG_PATH']} -i \"#{json['original_path']}\" -vcodec libx264 -strict -2 -acodec aac \"#{json['converted_path']}\""
-    puts command
-    # system(command)
-    pid, stdin, stdout, stderr = Open4::popen4 command
+      command = "#{ENV['FFMPEG_PATH']} -i \"#{json['original_path']}\" -vcodec libx264 -strict -2 -acodec aac \"#{json['converted_path']}\""
+      puts command
+      # system(command)
+      pid, stdin, stdout, stderr = Open4::popen4 command
     
-    Process::waitpid2 pid
+      Process::waitpid2 pid
     
-    command = "#{ENV['FFMPEG_PATH']} -ss 00:00:30.0 -i \"#{json['original_path']}\" -y -vf 'select=eq(pict_type\\,I)' -r 1 -vframes 1 #{json['screenshot_large_path']}"
-    puts command
-    # system(command)
-    pid, stdin, stdout, stderr = Open4::popen4 command
-    Process::waitpid2 pid
+      command = "#{ENV['FFMPEG_PATH']} -ss 00:00:01.0 -i \"#{json['original_path']}\" -y -vf 'select=eq(pict_type\\,I)' -r 1 -vframes 1 #{json['screenshot_large_path']}"
+      puts command
+      # system(command)
+      pid, stdin, stdout, stderr = Open4::popen4 command
+      Process::waitpid2 pid
+    
+      image = MiniMagick::Image.open(json['screenshot_large_path'])
+    
+      resize_image(image, "852x480")
+      image.write json['screenshot_large_path']
+    
+      resize_image(image, "274x154")
+      image.write json['screenshot_small_path']
+    rescue Exception => e
+      puts "Exception:"
+      puts "----------------------------"
+      puts e
+      puts "----------------------------"
+      # TODO error message senden
+    end
     
     client = Bunny.new(rabbit_url)
     client.start
