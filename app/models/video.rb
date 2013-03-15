@@ -3,6 +3,10 @@ class Video < ActiveRecord::Base
   
   mount_uploader :video, VideoUploader
   
+  def mark_as(status)
+    self.update_attribute(:status=>status)
+  end
+  
   def original_path
     self.video.path
   end  

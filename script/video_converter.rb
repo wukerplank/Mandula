@@ -60,12 +60,16 @@ loop do
     
       resize_image(image, "274x154")
       image.write json['screenshot_small_path']
+      
+      status = 'success'
     rescue Exception => e
       puts "Exception:"
       puts "----------------------------"
       puts e
       puts "----------------------------"
-      # TODO error message senden
+      
+      
+      status = 'error'
     end
     
     client = Bunny.new(rabbit_url)
@@ -74,6 +78,12 @@ loop do
     channel  = client.create_channel
     queue    = channel.queue("mandula.videos.new_video")
     exchange = channel.default_exchange
+    
+    finished_exchange = channel.fanout('mandula.videos.finished')
+    finished_exchange.publish({
+      'video_id' => json['video_id'],
+      'status'   => status
+    }.to_json)
   end
   
 end

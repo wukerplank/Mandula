@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313144928) do
+ActiveRecord::Schema.define(:version => 20130315104606) do
 
   create_table "users", :force => true do |t|
     t.string   "nickname"
@@ -26,8 +26,11 @@ ActiveRecord::Schema.define(:version => 20130313144928) do
     t.text     "description"
     t.string   "video"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.string   "status",      :default => "new"
   end
+
+  add_index "videos", ["status"], :name => "index_videos_on_status"
 
 end
