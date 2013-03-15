@@ -1,5 +1,5 @@
 desc "connects to rabbitmq and notifies video owners if their video conversion failed or finished"
-task :mark => :environment do
+task :mail => :environment do
   
   client = Bunny.new("amqp://#{ENV['RABBIT_MQ_USER']}:#{ENV['RABBIT_MQ_PASSWORD']}@#{ENV['RABBIT_MQ_HOST']}:#{ENV['RABBIT_MQ_PORT']}")
   client.start

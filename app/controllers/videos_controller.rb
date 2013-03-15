@@ -1,7 +1,7 @@
 class VideosController < ApplicationController
   
   def index
-    @videos = Video.where('status=?', 'finished').all
+    @videos = Video.where('status=?', 'success').all
     respond_to do |format|
       format.json{ render :json=>@videos.to_json(:methods=>[:converted_url, :screenshot_small_url, :screenshot_large_url]) }
     end

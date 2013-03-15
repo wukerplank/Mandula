@@ -13,7 +13,9 @@ task :mark => :environment do
     puts "received: #{json.inspect}"
     
     video = Video.find(json['video_id'])
+    puts "found it!"
     video.mark_as(json['status'])
+    puts "marked it!"
   end
   
   loop do

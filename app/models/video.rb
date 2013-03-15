@@ -1,10 +1,12 @@
 class Video < ActiveRecord::Base
   attr_accessible :description, :title, :video
   
+  belongs_to :user
+  
   mount_uploader :video, VideoUploader
   
   def mark_as(status)
-    self.update_attribute(:status=>status)
+    self.update_attribute(:status, status)
   end
   
   def original_path
