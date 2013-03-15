@@ -5,6 +5,7 @@ gem 'rails', '3.2.12'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'bunny', '0.9.0.pre4'
 gem 'carrierwave'
 gem 'fog', '~> 1.3.1'
 gem 'rails-backbone'
