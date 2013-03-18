@@ -15,7 +15,7 @@ gem 'open4'
 gem 'rails-backbone'
 
 group :development do
-  gem 'sqlite3'
+  gem 'mysql2'
   gem 'thin'
 end
 

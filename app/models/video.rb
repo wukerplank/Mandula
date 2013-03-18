@@ -3,6 +3,8 @@ class Video < ActiveRecord::Base
   
   belongs_to :user
   
+  after_destroy :remove_files
+  
   mount_uploader :video, VideoUploader
   
   def mark_as(status)
@@ -35,6 +37,12 @@ class Video < ActiveRecord::Base
   
   def screenshot_large_url
     File.join self.video.store_dir, 'large.png'
+  end
+  
+  def remove_files
+    File.unlink(converted_path)
+    File.unlink(screenshot_small_path)
+    File.unlink(screenshot_large_path)
   end
   
 end

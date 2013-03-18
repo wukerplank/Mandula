@@ -1,7 +1,16 @@
 class Mandula.Routers.AppRouter extends Backbone.Router
   initialize: (options) ->
     console.log 'Hey da ist der Init. vom Router!'
-
+    if Cookie.get('nickname')
+      window.currentUser = new Mandula.Models.User({id: Cookie.get('nickname')})
+      window.currentUser.fetch
+        success: ->
+          view = new Mandula.Views.SiteHeaderView({currentUser: window.currentUser})
+          view.render()
+    else
+      view = new Mandula.Views.SiteHeaderView()
+      view.render()
+      
   routes:
     '':           'home',
     'home':       'home'

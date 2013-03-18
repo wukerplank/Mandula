@@ -1,2 +1,2 @@
-class User extends Backbone.Model
+class Mandula.Models.User extends Backbone.Model
   urlRoot: '/users'
