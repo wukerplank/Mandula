@@ -31,9 +31,9 @@
 					<li><a href="/#/videos/new">Upload</a></li>
 					<li>
 						<%% if (typeof(currentUser.avatar_url) != "undefined") { %>
-							<img src="<%%= currentUser.get('avatar_url') %>" />
+							<img src="<%%= currentUser.get('avatar_url') %>" style="width:25px;height:25px;">
 						<%% } else { %>
-							<%= image_tag 'default_avatar.png' %>
+							<%= image_tag 'default_avatar.png', :style=>"width:25px;height:25px;" %>
 						<%% } %>
 						<%%= currentUser.get('nickname') %>
 					</li>
