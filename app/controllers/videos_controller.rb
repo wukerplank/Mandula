@@ -1,9 +1,20 @@
 class VideosController < ApplicationController
   
-  before_filter :user_required
+  before_filter :user_required, :except=>[:index]
   
   def index
-    @videos = Video.where('status=?', 'success').all
+    @videos = Video.where('status=?', 'success').order('created_at DESC').all
+    
+    respond_to do |format|
+      format.json{ render :json=>@videos.to_json(:methods=>[:converted_url, :screenshot_small_url, :screenshot_large_url]) }
+    end
+  end
+  
+  def my
+    @videos = current_user.videos.order('created_at DESC').all
+    
+    logger.info @videos.to_json(:methods=>[:converted_url, :screenshot_small_url, :screenshot_large_url])
+    
     respond_to do |format|
       format.json{ render :json=>@videos.to_json(:methods=>[:converted_url, :screenshot_small_url, :screenshot_large_url]) }
     end

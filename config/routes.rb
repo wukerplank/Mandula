@@ -1,7 +1,11 @@
 Mandula::Application.routes.draw do
   
   resources :users
-  resources :videos
+  resources :videos do
+    collection do
+      get 'my'
+    end
+  end
   
   match '/auth/:provider/callback' => 'Users#auth'
   match '/auth/failure'            => 'Users#auth_failure'

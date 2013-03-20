@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   def user_required
-    current_user
+    redirect_to '/#/signup' unless current_user
   end
   
 end

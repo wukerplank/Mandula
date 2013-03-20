@@ -16,7 +16,10 @@ class Mandula.Routers.AppRouter extends Backbone.Router
     '':           'home',
     'home':       'home'
     'videos/new': 'videoNew'
+    'videos/my':  'myVideos'
     'videos/:id': 'videoShow'
+    'signup':     'signup'
+    
 
   home: ->
     console.log "You're at home baby!"
@@ -33,3 +36,12 @@ class Mandula.Routers.AppRouter extends Backbone.Router
     
     view = new Mandula.Views.ShowVideoView()
     view.render(id)
+
+  myVideos: ->
+    view = new Mandula.Views.MyVideosView()
+    view.render()
+
+  signup: ->
+    console.log "You're at home baby!"
+    view = new Mandula.Views.SignupView()
+    view.render()

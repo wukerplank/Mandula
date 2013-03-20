@@ -169,9 +169,12 @@ header nav li {
 }
 
 header nav li img {
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	        border-radius: 4px;
 	float: right;
 	height: 36px;
-	padding: 10px;
+	margin: 10px;
 }
 
 header nav li span {

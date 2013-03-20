@@ -1,19 +1,21 @@
-class Mandula.Views.HomeView extends Backbone.View
+class Mandula.Views.MyVideosView extends Backbone.View
   
   el: '#content'
   
   initialize: ->
-    this.template = _.template($('#home').html())
+    this.template = _.template($('#myVideos').html())
 
   render: ->
     
-    videos = new Mandula.Collections.VideoCollection()
+    videos = new Mandula.Collections.MyVideoCollection()
     videos.fetch({
       success: =>
+        console.log videos
+
         tmpl = this.template({});
         $(this.el).html(tmpl);
-        
-        console.log videos
+
+
         @tile_container = $('#list-videos')
         _.each(videos.models, (video) =>
           console.log video

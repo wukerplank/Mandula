@@ -20,14 +20,14 @@
 	</div>
 	
 	<script type="text/html" id="siteHeader" charset="utf-8">
-		<h1><a href="/">Mandula</a></h1>
+		<h1><a href="/#/">Mandula</a></h1>
 		<nav>
 			<ul>
 				<%% if (typeof(currentUser) == "undefined") { %>
 					<li><a href="/auth/developer">Sign in with Developer</a></li>
 					<li><a href="/auth/twitter">Sign in with Twitter</a></li>
 				<%% } else { %>
-					<li><a href="">My Videos</a></li>
+					<li><a href="/#/videos/my">My Videos</a></li>
 					<li><a href="/#/videos/new">Upload</a></li>
 					<li>
 						<span><%%= currentUser.get('nickname') %></span>
@@ -83,8 +83,23 @@
 		
 	</script>
 	
+	<script type="text/html" id="signup">
+		<h2>Whopa!</h2>
+		
+		<p>We are sorry, but you can't upload videos unless you are signed in.</p>
+		
+		<p>Use Twitter to <a href="/#/auth/twitter">create a new account</a>.</p>
+	</script>
+	
 	<script type="text/html" id="home">
 		<h2>Welcome to Mandula!</h2>
+		
+		<ul id="list-videos">
+		</ul>
+	</script>
+	
+	<script type="text/html" id="myVideos">
+		<h2>These are your videos:</h2>
 		
 		<ul id="list-videos">
 		</ul>
