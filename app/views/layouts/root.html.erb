@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 	<%= stylesheet_link_tag "application", :media => "all" %>
@@ -6,46 +7,60 @@
 </head>
 <body>
 	
-	<p>
-		<a href="/">Home</a> | 
-		<a href="/#/videos/new">New Upload</a> | 
-		<a href="/auth/developer">Sign in with Developer</a> | 
-		<a href="/auth/twitter">Sign in with Twitter</a>
-	</p>
-	
-	<hr>
-	
-	<div id="content">
-		
-	</div>
-	
-	<script type="text/html" id="videoNew">
-		<form action="/videos/" method="POST" enctype="multipart/form-data">
-			<p><input type="text" name="video[title]"></p>
+	<div id="container">
+		<header>
+			<h1><a href="/">Mandula</a></h1>
+			<nav>
+				<ul>
+					<li class="active"><a href="/">New Videos</a></li>
+					<li><a href="/#/videos/new">Upload</a></li>
+					<li><a href="/auth/developer">Sign in with Developer</a></li>
+					<li><a href="/auth/twitter">Sign in with Twitter</a></li>
+				</ul>
+			</nav>
+		</header>
 
-			<p><textarea name="video[description]"></textarea></p>
+		<div id="content"></div>
 
-			<p><input type="file" name="video[video]"></p>
-
-			<p><input type="submit"></p>
-		</form>
+		<footer>
+			<p>&copy; <a href="http://www.edthofer.at">Christoph Edthofer</a> &amp; <a href="http://www.lukasmayerhofer.at">Lukas Mayerhofer</a></p>
+		</footer>
+	</div> <!-- #container -->
+	
+	<!-- Videos Overview: #videoTile -->
+	<script type="text/html" id="videoTile">
+		<ul id="list-videos">
+			<li><a href="/#/videos/<%%= id %>"><img src="<%%= screenshot_small_url %>" alt="Test" /><span>Titel</span></a></li>
+		</ul>
 	</script>
-	
+
+	<!-- Video Details: #videoShow -->
 	<script type="text/html" id="videoShow">
-		<h1><%%= title %></h1>
-		<video id="example_video_1" class="video-js vjs-default-skin" controls width="852" height="480" poster="<%%= screenshot_large_url %>" preload="auto" data-setup="{}">
-		  <source type="video/mp4" src="<%%= converted_url %>">
-		</video>
-		
-		<p><%%= description %></p>
-		
+		<div id="show-video">
+			<video id="video-player" class="video-js vjs-default-skin" controls width="852" height="480" poster="<%%= screenshot_large_url %>" preload="auto" data-setup="{}">
+	  			<source type="video/mp4" src="<%%= converted_url %>">
+			</video>
+
+			<div id="description">
+				<h2><%%= title %></h2>
+				<p><%%= description %></p>
+			</div> <!-- #description -->
+		</div> <!-- #show-video -->
+
 		<script type="text/javascript" charset="utf-8">
-			_V_("example_video_1", {}, function(){
+			_V_("video-player", {}, function(){
 				// ...
 			});
 		</script>
-		
-		
+	</script>
+
+	<script type="text/html" id="videoNew">
+		<form action="/videos/" method="POST" enctype="multipart/form-data">
+			<p><input type="text" name="video[title]"></p>
+			<p><textarea name="video[description]"></textarea></p>
+			<p><input type="file" name="video[video]"></p>
+			<p><input type="submit"></p>
+		</form>
 	</script>
 	
 	<script type="text/html" id="home">
@@ -55,12 +70,7 @@
 		<p><img src="<%%= screenshot_large_url %>" /></p>
 	</script>
 	
-	<script type="text/html" id="videoTile">
-		<div style="width:274px; height:154px; margin: 0 10px 10px 0; float: left; overflow:hidden">
-			<a href="/#/videos/<%%= id %>" title="<%%= title %>"><img src="<%%= screenshot_small_url %>" /></a>
-		</div>
-	</script>
-	
+	<!-- JavaScript -->
 	<%= javascript_include_tag "application" %>
 	<script src="http://vjs.zencdn.net/c/video.js"></script>
 </body>
