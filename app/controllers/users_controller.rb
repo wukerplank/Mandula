@@ -30,4 +30,12 @@ class UsersController < ApplicationController
     # ... handle the error
   end
   
+  def logout
+    cookies.delete('AUTH_TOKEN')
+    cookies.delete('nickname')
+    current_user.generate_new_auth_token!
+    @current_user = nil
+    redirect_to '/#/'
+  end
+  
 end

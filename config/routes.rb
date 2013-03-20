@@ -9,6 +9,7 @@ Mandula::Application.routes.draw do
   
   match '/auth/:provider/callback' => 'Users#auth'
   match '/auth/failure'            => 'Users#auth_failure'
+  match '/logout' => 'users#logout'
   
   root :to => 'root#index'
   

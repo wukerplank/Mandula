@@ -43,7 +43,7 @@ class VideosController < ApplicationController
         :screenshot_large_path => @video.screenshot_large_path,
       }.to_json, :routing_key => queue.name)
       
-      redirect_to "/#/videos/#{@video.id}"
+      redirect_to "/#/videos/my"
     else
       redirect_to '/#/videos/new'
     end
