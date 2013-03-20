@@ -1,19 +1,29 @@
 class UsersController < ApplicationController
   
+  def show
+    @user = User.find_by_nickname(params[:id])
+    respond_to do |format|
+      format.json{ render :json=>@user.to_json(:except=>[:id, :twitter_uid, :auth_token, :provider_hash]) }
+    end
+  end
+  
   def auth
     auth = request.env['omniauth.auth']
     
     if @user = User.find_by_twitter_uid(auth[:uid])
-      # ... gibt's, tuma was
+      cookies['AUTH_TOKEN'] = @user.generate_new_auth_token!
+      cookies['nickname']   = @user.nickname
     else
       @user = User.create(
         :nickname    => auth['info']['name'],
         :twitter_uid => auth[:uid],
         :provider_hash => auth.to_yaml
       )
+      cookies['AUTH_TOKEN'] = @user.auth_token
+      cookies['nickname']   = @user.nickname
     end
     
-    redirect_to '/index.html'
+    redirect_to '/'
   end
   
   def auth_failure

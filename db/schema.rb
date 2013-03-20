@@ -11,24 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315104606) do
+ActiveRecord::Schema.define(:version => 20130318133245) do
 
   create_table "users", :force => true do |t|
     t.string   "nickname"
+    t.string   "avatar_url"
+    t.string   "auth_token",    :limit => 32
     t.string   "twitter_uid"
     t.text     "provider_hash"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
+
+  add_index "users", ["auth_token"], :name => "index_users_on_auth_token"
 
   create_table "videos", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.string   "video"
     t.integer  "user_id"
+    t.string   "status",      :default => "new"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.string   "status",      :default => "new"
   end
 
   add_index "videos", ["status"], :name => "index_videos_on_status"

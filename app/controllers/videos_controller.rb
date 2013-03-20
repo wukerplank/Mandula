@@ -1,5 +1,7 @@
 class VideosController < ApplicationController
   
+  before_filter :user_required
+  
   def index
     @videos = Video.where('status=?', 'success').all
     respond_to do |format|
@@ -16,7 +18,7 @@ class VideosController < ApplicationController
   end
   
   def create
-    @video = Video.new(params[:video])
+    @video = current_user.videos.build(params[:video])
     if @video.save
       
       channel  = bunny_client.create_channel

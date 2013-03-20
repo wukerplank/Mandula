@@ -1,40 +1,68 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
+	<title>Mandula</title>
 	<%= stylesheet_link_tag "application", :media => "all" %>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:300,700,500' rel='stylesheet' type='text/css'>
 	<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
 </head>
 <body>
-	
 	<div id="container">
-		<header>
-			<h1><a href="/">Mandula</a></h1>
-			<nav>
-				<ul>
-					<li class="active"><a href="/">New Videos</a></li>
-					<li><a href="/#/videos/new">Upload</a></li>
-					<li><a href="/auth/developer">Sign in with Developer</a></li>
-					<li><a href="/auth/twitter">Sign in with Twitter</a></li>
-				</ul>
-			</nav>
-		</header>
-
-		<div id="content"></div>
-
+		<header id="header"></header>
+	
+		<div id="content">
+		
+		</div>
+	
 		<footer>
 			<p>&copy; <a href="http://www.edthofer.at">Christoph Edthofer</a> &amp; <a href="http://www.lukasmayerhofer.at">Lukas Mayerhofer</a></p>
 		</footer>
-	</div> <!-- #container -->
+	</div>
 	
-	<!-- Videos Overview: #videoTile -->
-	<script type="text/html" id="videoTile">
-		<ul id="list-videos">
-			<li><a href="/#/videos/<%%= id %>"><img src="<%%= screenshot_small_url %>" alt="Test" /><span>Titel</span></a></li>
-		</ul>
+	<script type="text/html" id="siteHeader" charset="utf-8">
+		<h1><a href="/">Mandula</a></h1>
+		<nav>
+			<ul>
+				<%% if (typeof(currentUser) == "undefined") { %>
+					<li><a href="/auth/developer">Sign in with Developer</a></li>
+					<li><a href="/auth/twitter">Sign in with Twitter</a></li>
+				<%% } else { %>
+					<li><a href="">My Videos</a></li>
+					<li><a href="/#/videos/new">Upload</a></li>
+					<li>
+						<%% if (typeof(currentUser.avatar_url) != "undefined") { %>
+							<img src="<%%= currentUser.get('avatar_url') %>" style="width:25px;height:25px;">
+						<%% } else { %>
+							<%= image_tag 'default_avatar.png', :style=>"width:25px;height:25px;" %>
+						<%% } %>
+						<%%= currentUser.get('nickname') %>
+					</li>
+				<%% } %>
+			</ul>
+		</nav>
 	</script>
-
-	<!-- Video Details: #videoShow -->
+	
+	<script type="text/html" id="videoNew">
+		<div id="upload">
+			<h2>Upload</h2>
+			<form action="/videos/" method="POST" enctype="multipart/form-data">
+				<p>
+					<input type="text" name="video[title]" id="video-title" placeholder="Titel">
+					<label for="video-title">Titel</label>
+				</p>
+				<p>
+					<textarea name="video[description]" id="video-description" placeholder="Beschreibung"></textarea>
+					<label for="video-description">Beschreibung</label>
+				</p>
+				<p>
+					<input type="file" name="video[video]" id="video-file">
+					<label for="video-file">Datei</label>
+				</p>
+				<p><input type="submit" id="submit"></p>
+			</form>
+		</div>
+	</script>
+	
 	<script type="text/html" id="videoShow">
 		<div id="show-video">
 			<video id="video-player" class="video-js vjs-default-skin" controls width="852" height="480" poster="<%%= screenshot_large_url %>" preload="auto" data-setup="{}">
@@ -46,31 +74,29 @@
 				<p><%%= description %></p>
 			</div> <!-- #description -->
 		</div> <!-- #show-video -->
-
+		
 		<script type="text/javascript" charset="utf-8">
 			_V_("video-player", {}, function(){
 				// ...
 			});
 		</script>
-	</script>
-
-	<script type="text/html" id="videoNew">
-		<form action="/videos/" method="POST" enctype="multipart/form-data">
-			<p><input type="text" name="video[title]"></p>
-			<p><textarea name="video[description]"></textarea></p>
-			<p><input type="file" name="video[video]"></p>
-			<p><input type="submit"></p>
-		</form>
+		
 	</script>
 	
 	<script type="text/html" id="home">
-		<h1><%%= title %></h1>
-		<p><%%= description %></p>
+		<h2>Welcome to Mandula!</h2>
 		
-		<p><img src="<%%= screenshot_large_url %>" /></p>
+		<ul id="list-videos">
+		</ul>
 	</script>
 	
-	<!-- JavaScript -->
+	<script type="text/html" id="videoTile">
+		<li><a href="/#/videos/<%%= id %>" title="<%%= title %>"><img src="<%%= screenshot_small_url %>" alt="<%%= title %>" /><span><%%= title %></span></a></li>
+	</script>
+	
+	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 	<%= javascript_include_tag "application" %>
 	<script src="http://vjs.zencdn.net/c/video.js"></script>
 </body>

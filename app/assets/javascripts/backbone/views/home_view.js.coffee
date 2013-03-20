@@ -3,15 +3,18 @@ class Mandula.Views.HomeView extends Backbone.View
   el: '#content'
   
   initialize: ->
-    
+    this.template = _.template($('#home').html())
 
   render: ->
     
     videos = new Mandula.Models.VideoCollection()
     videos.fetch({
       success: =>
+        tmpl = this.template({});
+        $(this.el).html(tmpl);
+        
         console.log videos
-        this.$el.html('')
+        @tile_container = $('#list-videos')
         _.each(videos.models, (video) =>
           console.log video
           this.renderVideo(video)
@@ -26,8 +29,8 @@ class Mandula.Views.HomeView extends Backbone.View
 
   renderVideo: (video) ->
       template = _.template($('#videoTile').html())
-      this.$el.append(template(video.toJSON()))
+      @tile_container.append(template(video.toJSON()))
 
   close: ->
-    this.remove();
-    this.unbind();
+    this.remove()
+    this.unbind()

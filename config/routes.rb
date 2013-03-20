@@ -1,6 +1,6 @@
 Mandula::Application.routes.draw do
   
-  
+  resources :users
   resources :videos
   
   match '/auth/:provider/callback' => 'Users#auth'
