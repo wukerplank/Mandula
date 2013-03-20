@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   
   before_validation :generate_auth_token
   
+  validates_presence_of :nickname, :twitter_uid
+  
   def generate_auth_token
     self.auth_token = Digest::MD5.hexdigest("--#{rand}--#{rand}--#{rand}--")
   end
