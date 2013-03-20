@@ -29,8 +29,11 @@
 				<%% } else { %>
 					<li><a href="/#/videos/my">My Videos</a></li>
 					<li><a href="/#/videos/new">Upload</a></li>
-					<li>
-						<span><%%= currentUser.get('nickname') %></span>
+					<li id="logout">
+						<div>
+							<span><%%= currentUser.get('nickname') %></span>
+							<a href="/logout">Logout</a>
+						</div>
 						<%% if (currentUser.get('avatar_url') !== null) { %>
 							<img src="<%%= currentUser.get('avatar_url') %>">
 						<%% } else { %>
@@ -110,7 +113,7 @@
 	</script>
 	
 	<script type="text/html" id="convertingVideoTile">
-		<li><a href="/#/videos/<%%= id %>" title="<%%= title %>"><img src="<%%= screenshot_small_url %>" alt="<%%= title %>" /><span>Converting...</span></a></li>
+		<li class="converting"<span>Converting...</span></li>
 	</script>
 	
 	<!--[if lt IE 9]>

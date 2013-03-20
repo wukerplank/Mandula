@@ -18,8 +18,10 @@ class Mandula.Views.MyVideosView extends Backbone.View
 
         @tile_container = $('#list-videos')
         _.each(videos.models, (video) =>
-          console.log video
-          this.renderVideo(video)
+          if(video.get('status') == 'new')
+            this.renderConvertingVideo(video)
+          else
+            this.renderVideo(video)
         )
         
       error: =>
@@ -28,6 +30,10 @@ class Mandula.Views.MyVideosView extends Backbone.View
     })
 
     console.log "Da issa!"
+
+  renderConvertingVideo: (video) ->
+    template = _.template($('#convertingVideoTile').html())
+    @tile_container.append(template(video.toJSON()))
 
   renderVideo: (video) ->
       template = _.template($('#videoTile').html())

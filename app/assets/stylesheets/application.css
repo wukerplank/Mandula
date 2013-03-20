@@ -112,7 +112,10 @@ h2 {
 }
 
 h2 {
+	color: #a1b17f;
+	font-size: 18px;
 	font-weight: 500;
+	line-height: 27px;
 	margin-bottom: 10px;
 }
 
@@ -134,6 +137,11 @@ a:hover {
 #container {
 	margin: 0 auto;
 	width: 852px;
+}
+
+#content h2,
+#content p {
+	padding: 0 10px;
 }
 
 header {
@@ -166,15 +174,7 @@ header nav ul {
 
 header nav li {
 	float: left;
-}
-
-header nav li img {
-	-webkit-border-radius: 4px;
-	   -moz-border-radius: 4px;
-	        border-radius: 4px;
-	float: right;
-	height: 36px;
-	margin: 10px;
+	height: 56px;
 }
 
 header nav li span {
@@ -191,6 +191,28 @@ header nav li a {
 	padding: 10px;
 }
 
+#logout {
+	overflow: hidden;
+}
+
+#logout div {
+	float: left;
+}
+
+#logout a {
+	border-left: 1px dashed #eee;
+	font-weight: 500;
+}
+
+#logout img {
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+			border-radius: 4px;
+	float: right;
+	height: 36px;
+	margin: 10px;
+}
+
 #show-video {
 	margin: 0 auto 40px;
 }
@@ -204,12 +226,10 @@ header nav li a {
 	padding-top: 0;
 }
 
-#description h2,
+/*#description h2,
 #upload h2 {
-	color: #a1b17f;
-	font-size: 18px;
-	line-height: 27px;
-}
+
+}*/
 
 #description p {
 	margin: 10px 0 0;
@@ -234,6 +254,13 @@ header nav li a {
 #list-videos li a {
 	display: block;
 	height: 154px;
+}
+
+#list-videos .converting {
+	height: 154px;
+	position: relative;
+	width: 274px;
+	z-index: 0;
 }
 
 #list-videos img {
@@ -261,8 +288,10 @@ header nav li a {
 	z-index: 1;
 }
 
-#list-videos span.converting {
+#list-videos .converting span {
+	background-color: #eee;
 	color: #a1b17f;
+	display: block;
 }
 
 #list-videos a:hover span {
