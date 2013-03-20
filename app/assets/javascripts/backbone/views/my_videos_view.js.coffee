@@ -20,6 +20,7 @@ class Mandula.Views.MyVideosView extends Backbone.View
         _.each(videos.models, (video) =>
           if(video.get('status') == 'new')
             this.renderConvertingVideo(video)
+            $.trigger('converting')
           else
             this.renderVideo(video)
         )
