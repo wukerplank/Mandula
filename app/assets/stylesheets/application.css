@@ -177,12 +177,13 @@ header nav li img {
 header nav li span {
 	border-left: 1px dashed #eee;
 	color: #a1b17f;
+	float: left;
 	font-weight: 500;
 }
 
 header nav li span,
 header nav li a {
-	display: inline-block;
+	display: block;
 	line-height: 36px;
 	padding: 10px;
 }

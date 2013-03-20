@@ -5,6 +5,7 @@ class Mandula.Routers.AppRouter extends Backbone.Router
       window.currentUser = new Mandula.Models.User({id: Cookie.get('nickname')})
       window.currentUser.fetch
         success: ->
+          console.log window.currentUser
           view = new Mandula.Views.SiteHeaderView({currentUser: window.currentUser})
           view.render()
     else
